@@ -68,10 +68,10 @@ class NeuralNetwork:
                 if hasattr(self.optimizer, 'pre_step'):
                     self.optimizer.pre_step()
 
-                # forward -> loss -> backward -> update
+                # forward, loss, backward, update
                 logits = self.forward(xb)
                 loss = self.loss_fn(yb, logits)
-                epoch_loss += loss * xb.shape[0]
+                epoch_loss += loss  # loss is already sum over batch
                 self.backward(yb, logits)
                 self.update_weights()
                 step += 1
@@ -165,8 +165,8 @@ class NeuralNetwork:
             xb = X[i:i+batch_size]
             yb = y[i:i+batch_size]
             logits = self.forward(xb)
-            total_loss += self.loss_fn(yb, logits) * xb.shape[0]
-        return total_loss / n
+            total_loss += self.loss_fn(yb, logits)  # loss is sum over batch
+        return total_loss / n  # avg per sample for display
 
     def get_weights(self):
         # save all layer weights as a dictionary
