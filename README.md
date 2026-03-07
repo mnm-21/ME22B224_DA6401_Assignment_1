@@ -4,8 +4,8 @@ NumPy-only implementation of a configurable Multi-Layer Perceptron for MNIST and
 
 ## Links
 
-- **W&B Report**: [PLACEHOLDER — add your report link here]
-- **GitHub Repo**: [PLACEHOLDER — add your repo link here]
+- **W&B Report**: [Assignment 1 - DA6401 - ME22B224](https://wandb.ai/mayank-chandak21-/da6401_assignment_1_ME22B224/reports/Assignment-1-DA6401-ME22B224--VmlldzoxNjEzMzc1Nw?accessToken=twnos1wcgccoerce7rie8qqdrkssdj57l2z25bkfd7dfgbztgcmevgts8pqi4sks)
+- **GitHub Repo**: [ME22B224_DA6401_Assignment_1](https://github.com/mnm-21/ME22B224_DA6401_Assignment_1.git)
 
 ## Project Structure
 
@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ## Training
 
 ```bash
-python src/train.py -d mnist -e 10 -b 64 -o rmsprop -lr 0.001 -a relu -nhl 3 -sz 128 -w_i xavier
+python src/train.py -d mnist -e 10 -b 32 -o momentum -lr 0.076 -a sigmoid -nhl 2 -sz 128 64 -w_i xavier
 ```
 
 All CLI arguments:
@@ -42,14 +42,14 @@ All CLI arguments:
 |------|-------------|---------|
 | `-d` | Dataset (mnist / fashion_mnist) | fashion_mnist |
 | `-e` | Epochs | 10 |
-| `-b` | Batch size | 64 |
+| `-b` | Batch size | 32 |
 | `-l` | Loss (cross_entropy / mean_squared_error) | cross_entropy |
-| `-o` | Optimizer (sgd / momentum / nag / rmsprop) | sgd |
-| `-lr` | Learning rate | 0.01 |
+| `-o` | Optimizer (sgd / momentum / nag / rmsprop) | momentum |
+| `-lr` | Learning rate | 0.076 |
 | `-wd` | Weight decay (L2) | 0.0 |
-| `-nhl` | Number of hidden layers | 3 |
-| `-sz` | Hidden layer sizes (list) | 128 128 128 |
-| `-a` | Activation (sigmoid / tanh / relu) | relu |
+| `-nhl` | Number of hidden layers | 2 |
+| `-sz` | Hidden layer sizes (list) | 128 64 |
+| `-a` | Activation (sigmoid / tanh / relu) | sigmoid |
 | `-w_i` | Weight init (random / xavier / zeros) | xavier |
 | `-w_p` | W&B project name | da6401_assignment_1 |
 
@@ -58,7 +58,7 @@ The best model is saved as `src/best_model.npy` and its config as `src/best_conf
 ## Inference
 
 ```bash
-python src/inference.py --model_path src/best_model.npy -d mnist -nhl 3 -sz 128 -a relu -w_i xavier
+python src/inference.py --model_path src/best_model.npy -d mnist -nhl 2 -sz 128 64 -a sigmoid -w_i xavier
 ```
 
 Outputs Accuracy, Precision, Recall, and F1-Score on the test set.

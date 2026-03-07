@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # vanilla mini-batch gradient descent
 class SGD:
     def __init__(self, layers, lr=0.01, weight_decay=0):
@@ -70,7 +71,9 @@ class RMSProp:
         self.beta = beta
         self.eps = eps
         self.wd = weight_decay
-        self.v_w = [np.zeros_like(l.W) for l in layers]  # running avg of squared gradients
+        self.v_w = [
+            np.zeros_like(l.W) for l in layers
+        ]  # running avg of squared gradients
         self.v_b = [np.zeros_like(l.b) for l in layers]
 
     def step(self):
@@ -78,16 +81,16 @@ class RMSProp:
             gw = layer.grad_W + self.wd * layer.W
             gb = layer.grad_b
             # update running average of squared gradients
-            self.v_w[i] = self.beta * self.v_w[i] + (1 - self.beta) * gw ** 2
-            self.v_b[i] = self.beta * self.v_b[i] + (1 - self.beta) * gb ** 2
+            self.v_w[i] = self.beta * self.v_w[i] + (1 - self.beta) * gw**2
+            self.v_b[i] = self.beta * self.v_b[i] + (1 - self.beta) * gb**2
             # divide by sqrt to get adaptive lr
             layer.W -= self.lr * gw / (np.sqrt(self.v_w[i]) + self.eps)
             layer.b -= self.lr * gb / (np.sqrt(self.v_b[i]) + self.eps)
 
 
 OPTIMIZERS = {
-    'sgd': SGD,
-    'momentum': Momentum,
-    'nag': NAG,
-    'rmsprop': RMSProp,
+    "sgd": SGD,
+    "momentum": Momentum,
+    "nag": NAG,
+    "rmsprop": RMSProp,
 }

@@ -1,5 +1,6 @@
 import sys
 import os
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 import argparse
@@ -11,21 +12,38 @@ from utils.data_loader import load_data
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
 def parse_arguments():
-    p = argparse.ArgumentParser(description='Run inference on test set')
-    p.add_argument('-d', '--dataset', default='fashion_mnist', choices=['mnist', 'fashion_mnist'])
-    p.add_argument('-e', '--epochs', type=int, default=10)
-    p.add_argument('-b', '--batch_size', type=int, default=32)
-    p.add_argument('-l', '--loss', default='cross_entropy', choices=['cross_entropy', 'mean_squared_error'])
-    p.add_argument('-o', '--optimizer', default='momentum', choices=['sgd', 'momentum', 'nag', 'rmsprop'])
-    p.add_argument('-lr', '--learning_rate', type=float, default=0.076)
-    p.add_argument('-wd', '--weight_decay', type=float, default=0.0)
-    p.add_argument('-nhl', '--num_layers', type=int, default=2)
-    p.add_argument('-sz', '--hidden_size', type=int, nargs='+', default=[128, 64])
-    p.add_argument('-a', '--activation', default='sigmoid', choices=['sigmoid', 'tanh', 'relu'])
-    p.add_argument('-w_i', '--weight_init', default='xavier', choices=['random', 'xavier'])
-    p.add_argument('-w_p', '--wandb_project', default='da6401_assignment_1')
-    p.add_argument('--model_path', default='best_model.npy')
+    p = argparse.ArgumentParser(description="Run inference on test set")
+    p.add_argument(
+        "-d", "--dataset", default="fashion_mnist", choices=["mnist", "fashion_mnist"]
+    )
+    p.add_argument("-e", "--epochs", type=int, default=10)
+    p.add_argument("-b", "--batch_size", type=int, default=32)
+    p.add_argument(
+        "-l",
+        "--loss",
+        default="cross_entropy",
+        choices=["cross_entropy", "mean_squared_error"],
+    )
+    p.add_argument(
+        "-o",
+        "--optimizer",
+        default="momentum",
+        choices=["sgd", "momentum", "nag", "rmsprop"],
+    )
+    p.add_argument("-lr", "--learning_rate", type=float, default=0.076)
+    p.add_argument("-wd", "--weight_decay", type=float, default=0.0)
+    p.add_argument("-nhl", "--num_layers", type=int, default=2)
+    p.add_argument("-sz", "--hidden_size", type=int, nargs="+", default=[128, 64])
+    p.add_argument(
+        "-a", "--activation", default="sigmoid", choices=["sigmoid", "tanh", "relu"]
+    )
+    p.add_argument(
+        "-w_i", "--weight_init", default="xavier", choices=["random", "xavier"]
+    )
+    p.add_argument("-w_p", "--wandb_project", default="da6401_assignment_1")
+    p.add_argument("--model_path", default="best_model.npy")
     return p.parse_args()
 
 
@@ -47,21 +65,22 @@ def evaluate_model(model, X_test, y_test):
 
     # compute loss
     from ann.objective_functions import cross_entropy
+
     loss = cross_entropy(y_test, logits)
 
     # compute metrics using sklearn
     acc = accuracy_score(labels, preds)
-    prec = precision_score(labels, preds, average='macro')
-    rec = recall_score(labels, preds, average='macro')
-    f1 = f1_score(labels, preds, average='macro')
+    prec = precision_score(labels, preds, average="macro")
+    rec = recall_score(labels, preds, average="macro")
+    f1 = f1_score(labels, preds, average="macro")
 
     return {
-        'logits': logits,
-        'loss': float(loss),
-        'accuracy': acc,
-        'precision': prec,
-        'recall': rec,
-        'f1': f1,
+        "logits": logits,
+        "loss": float(loss),
+        "accuracy": acc,
+        "precision": prec,
+        "recall": rec,
+        "f1": f1,
     }
 
 
@@ -71,8 +90,10 @@ def main():
     if len(args.hidden_size) == 1:
         args.hidden_size = args.hidden_size * args.num_layers
     elif len(args.hidden_size) < args.num_layers:
-        args.hidden_size = args.hidden_size + [args.hidden_size[-1]] * (args.num_layers - len(args.hidden_size))
-    args.hidden_size = args.hidden_size[:args.num_layers]
+        args.hidden_size = args.hidden_size + [args.hidden_size[-1]] * (
+            args.num_layers - len(args.hidden_size)
+        )
+    args.hidden_size = args.hidden_size[: args.num_layers]
 
     # load test data (we don't need train/val for inference)
     _, _, _, _, X_test, y_test = load_data(args.dataset)
@@ -93,5 +114,5 @@ def main():
     return results
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

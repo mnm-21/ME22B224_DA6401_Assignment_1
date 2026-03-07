@@ -1,13 +1,16 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-def load_data(dataset='fashion_mnist', val_split=0.1):
+
+def load_data(dataset="fashion_mnist", val_split=0.1):
     # load raw data from keras
-    if dataset == 'mnist':
+    if dataset == "mnist":
         from keras.datasets import mnist
+
         (X_train, y_train), (X_test, y_test) = mnist.load_data()
     else:
         from keras.datasets import fashion_mnist
+
         (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
 
     # flatten 28x28 images to 784-dim vectors and normalize to [0, 1]
