@@ -14,14 +14,14 @@ def parse_arguments():
     p = argparse.ArgumentParser(description='Train a neural network')
     p.add_argument('-d', '--dataset', default='fashion_mnist', choices=['mnist', 'fashion_mnist'])
     p.add_argument('-e', '--epochs', type=int, default=10)
-    p.add_argument('-b', '--batch_size', type=int, default=64)
+    p.add_argument('-b', '--batch_size', type=int, default=32)
     p.add_argument('-l', '--loss', default='cross_entropy', choices=['cross_entropy', 'mean_squared_error'])
-    p.add_argument('-o', '--optimizer', default='sgd', choices=['sgd', 'momentum', 'nag', 'rmsprop'])
-    p.add_argument('-lr', '--learning_rate', type=float, default=0.01)
+    p.add_argument('-o', '--optimizer', default='momentum', choices=['sgd', 'momentum', 'nag', 'rmsprop'])
+    p.add_argument('-lr', '--learning_rate', type=float, default=0.076)
     p.add_argument('-wd', '--weight_decay', type=float, default=0.0)
-    p.add_argument('-nhl', '--num_layers', type=int, default=3)
-    p.add_argument('-sz', '--hidden_size', type=int, nargs='+', default=[128, 128, 128])
-    p.add_argument('-a', '--activation', default='relu', choices=['sigmoid', 'tanh', 'relu'])
+    p.add_argument('-nhl', '--num_layers', type=int, default=2)
+    p.add_argument('-sz', '--hidden_size', type=int, nargs='+', default=[128, 64])
+    p.add_argument('-a', '--activation', default='sigmoid', choices=['sigmoid', 'tanh', 'relu'])
     p.add_argument('-w_i', '--weight_init', default='xavier', choices=['random', 'xavier', 'zeros'])
     p.add_argument('-w_p', '--wandb_project', default='da6401_assignment_1')
     p.add_argument('--model_save_path', default='best_model.npy')
@@ -45,7 +45,11 @@ def main():
     print(f"Data loaded: train={X_train.shape}, val={X_val.shape}, test={X_test.shape}")
 
     import wandb
-    run = wandb.init(project=args.wandb_project, config=vars(args))
+    try:
+        run = wandb.init(project=args.wandb_project, config=vars(args), server=None)
+    except Exception:
+        print("W&B initialization failed (likely network timeout). Continuing without logging.")
+        run = None
 
     model = NeuralNetwork(args)
     best_weights = model.train(X_train, y_train, X_val, y_val,
@@ -73,7 +77,8 @@ def main():
     with open(config_path, 'w') as f:
         json.dump(config, f, indent=2)
 
-    run.finish()
+    if run:
+        run.finish()
     print("Training complete!")
 
 

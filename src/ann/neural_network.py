@@ -34,15 +34,14 @@ class NeuralNetwork:
 
     def backward(self, y_true, y_pred):
         # backprop from last layer to first
+        # grad_W[0] = last layer, grad_W[-1] = first layer (matches skeleton spec)
         self.grad_W = np.empty(len(self.layers), dtype=object)
         self.grad_b = np.empty(len(self.layers), dtype=object)
         d = self.loss_grad(y_true, y_pred)
         for i, layer in enumerate(reversed(self.layers)):
             d = layer.backward(d)
-            # store in forward order: index 0 = first layer, index -1 = output layer
-            idx = len(self.layers) - 1 - i
-            self.grad_W[idx] = layer.grad_W
-            self.grad_b[idx] = layer.grad_b
+            self.grad_W[i] = layer.grad_W
+            self.grad_b[i] = layer.grad_b
         return self.grad_W, self.grad_b
 
     def update_weights(self):
@@ -136,23 +135,38 @@ class NeuralNetwork:
 
         return best_weights
 
-    def _compute_loss(self, X, y):
-        logits = self.forward(X)
-        return self.loss_fn(y, logits)
-
-    def evaluate(self, X, y):
-        acc, _ = self.evaluate_metrics(X, y)
-        return acc
-
-    def evaluate_metrics(self, X, y):
-        # returns both accuracy and macro f1
-        logits = self.forward(X)
-        probs = softmax(logits)
-        preds = np.argmax(probs, axis=1)
+    def evaluate(self, X, y, batch_size=256):
+        n = X.shape[0]
+        preds = np.zeros(n)
+        for i in range(0, n, batch_size):
+            xb = X[i:i+batch_size]
+            logits = self.forward(xb)
+            preds[i:i+batch_size] = np.argmax(logits, axis=1)
         labels = np.argmax(y, axis=1)
-        acc = np.mean(preds == labels)
+        return np.mean(preds == labels)
+
+    def evaluate_metrics(self, X, y, batch_size=256):
+        from sklearn.metrics import accuracy_score, f1_score
+        n = X.shape[0]
+        preds = np.zeros(n)
+        for i in range(0, n, batch_size):
+            xb = X[i:i+batch_size]
+            logits = self.forward(xb)
+            preds[i:i+batch_size] = np.argmax(logits, axis=1)
+        labels = np.argmax(y, axis=1)
+        acc = accuracy_score(labels, preds)
         f1 = f1_score(labels, preds, average='macro')
         return acc, f1
+
+    def _compute_loss(self, X, y, batch_size=256):
+        n = X.shape[0]
+        total_loss = 0
+        for i in range(0, n, batch_size):
+            xb = X[i:i+batch_size]
+            yb = y[i:i+batch_size]
+            logits = self.forward(xb)
+            total_loss += self.loss_fn(yb, logits) * xb.shape[0]
+        return total_loss / n
 
     def get_weights(self):
         # save all layer weights as a dictionary

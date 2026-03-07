@@ -13,14 +13,14 @@ def parse_arguments():
     p = argparse.ArgumentParser(description='Run inference on test set')
     p.add_argument('-d', '--dataset', default='fashion_mnist', choices=['mnist', 'fashion_mnist'])
     p.add_argument('-e', '--epochs', type=int, default=10)
-    p.add_argument('-b', '--batch_size', type=int, default=64)
+    p.add_argument('-b', '--batch_size', type=int, default=32)
     p.add_argument('-l', '--loss', default='cross_entropy', choices=['cross_entropy', 'mean_squared_error'])
-    p.add_argument('-o', '--optimizer', default='sgd', choices=['sgd', 'momentum', 'nag', 'rmsprop'])
-    p.add_argument('-lr', '--learning_rate', type=float, default=0.01)
+    p.add_argument('-o', '--optimizer', default='momentum', choices=['sgd', 'momentum', 'nag', 'rmsprop'])
+    p.add_argument('-lr', '--learning_rate', type=float, default=0.076)
     p.add_argument('-wd', '--weight_decay', type=float, default=0.0)
-    p.add_argument('-nhl', '--num_layers', type=int, default=3)
-    p.add_argument('-sz', '--hidden_size', type=int, nargs='+', default=[128, 128, 128])
-    p.add_argument('-a', '--activation', default='relu', choices=['sigmoid', 'tanh', 'relu'])
+    p.add_argument('-nhl', '--num_layers', type=int, default=2)
+    p.add_argument('-sz', '--hidden_size', type=int, nargs='+', default=[128, 64])
+    p.add_argument('-a', '--activation', default='sigmoid', choices=['sigmoid', 'tanh', 'relu'])
     p.add_argument('-w_i', '--weight_init', default='xavier', choices=['random', 'xavier'])
     p.add_argument('-w_p', '--wandb_project', default='da6401_assignment_1')
     p.add_argument('--model_path', default='best_model.npy')
@@ -45,8 +45,11 @@ def evaluate_model(model, X_test, y_test):
     prec = precision_score(labels, preds, average='macro')
     rec = recall_score(labels, preds, average='macro')
     f1 = f1_score(labels, preds, average='macro')
+    
+    loss = model.loss_fn(y_test, logits)
 
     return {
+        'loss': loss,
         'logits': logits,
         'accuracy': acc,
         'precision': prec,
