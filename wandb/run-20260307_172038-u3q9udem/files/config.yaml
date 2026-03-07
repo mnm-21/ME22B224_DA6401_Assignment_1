@@ -1,0 +1,79 @@
+_wandb:
+    value:
+        cli_version: 0.25.0
+        e:
+            u7i6mq9jcg1m3s4nabi845uyww6czi2w:
+                apple: {}
+                args:
+                    - --section
+                    - "2.3"
+                codePath: src/wandb_experiments.py
+                codePathLocal: src/wandb_experiments.py
+                cpu_count: 10
+                cpu_count_logical: 10
+                disk:
+                    /:
+                        total: "494384795648"
+                        used: "204824166400"
+                email: mayank.chandak21@gmail.com
+                executable: /Users/mayankchandak/Desktop/MY STUFF/Courses/SEM8/Intro to DL/Assignments/da6401/bin/python
+                git:
+                    commit: e993685854dc878f1262b8a0b205e6f49785cd45
+                    remote: https://github.com/mnm-21/ME22B224_DA6401_Assignment_1.git
+                host: Mayanks-MacBook-Pro.local
+                memory:
+                    total: "17179869184"
+                os: macOS-26.3.1-arm64-arm-64bit
+                program: /Users/mayankchandak/Desktop/MY STUFF/Courses/SEM8/Intro to DL/Assignments/da6401_assignment_1/src/wandb_experiments.py
+                python: CPython 3.10.15
+                root: /Users/mayankchandak/Desktop/MY STUFF/Courses/SEM8/Intro to DL/Assignments/da6401_assignment_1
+                startedAt: "2026-03-07T11:50:38.280282Z"
+                writerId: u7i6mq9jcg1m3s4nabi845uyww6czi2w
+        m: []
+        python_version: 3.10.15
+        t:
+            "1":
+                - 2
+                - 3
+                - 5
+                - 53
+            "2":
+                - 2
+                - 3
+                - 5
+                - 53
+            "3":
+                - 2
+                - 13
+                - 15
+                - 16
+                - 62
+            "4": 3.10.15
+            "5": 0.25.0
+            "12": 0.25.0
+            "13": darwin-arm64
+activation:
+    value: relu
+batch_size:
+    value: 64
+dataset:
+    value: mnist
+epochs:
+    value: 10
+hidden_size:
+    value:
+        - 128
+        - 128
+        - 128
+learning_rate:
+    value: 0.01
+loss:
+    value: cross_entropy
+num_layers:
+    value: 3
+optimizer:
+    value: rmsprop
+weight_decay:
+    value: 0
+weight_init:
+    value: xavier

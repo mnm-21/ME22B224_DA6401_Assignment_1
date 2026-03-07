@@ -1,0 +1,33 @@
+{
+  "os": "macOS-26.3.1-arm64-arm-64bit",
+  "python": "CPython 3.10.15",
+  "startedAt": "2026-03-07T11:53:35.472786Z",
+  "args": [
+    "--section",
+    "2.3"
+  ],
+  "program": "/Users/mayankchandak/Desktop/MY STUFF/Courses/SEM8/Intro to DL/Assignments/da6401_assignment_1/src/wandb_experiments.py",
+  "codePath": "src/wandb_experiments.py",
+  "codePathLocal": "src/wandb_experiments.py",
+  "git": {
+    "remote": "https://github.com/mnm-21/ME22B224_DA6401_Assignment_1.git",
+    "commit": "e993685854dc878f1262b8a0b205e6f49785cd45"
+  },
+  "email": "mayank.chandak21@gmail.com",
+  "root": "/Users/mayankchandak/Desktop/MY STUFF/Courses/SEM8/Intro to DL/Assignments/da6401_assignment_1",
+  "host": "Mayanks-MacBook-Pro.local",
+  "executable": "/Users/mayankchandak/Desktop/MY STUFF/Courses/SEM8/Intro to DL/Assignments/da6401/bin/python",
+  "cpu_count": 10,
+  "cpu_count_logical": 10,
+  "disk": {
+    "/": {
+      "total": "494384795648",
+      "used": "204821962752"
+    }
+  },
+  "memory": {
+    "total": "17179869184"
+  },
+  "apple": {},
+  "writerId": "09b9aewlpikztqtcp079uhbuym9r5d8y"
+}

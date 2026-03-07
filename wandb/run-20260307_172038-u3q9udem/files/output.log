@@ -1,0 +1,11 @@
+Epoch 1/10 | loss: 0.4026 | train_acc: 0.9372 | val_acc: 0.9355 | val_f1: 0.9346
+Epoch 2/10 | loss: 0.2544 | train_acc: 0.9573 | val_acc: 0.9538 | val_f1: 0.9531
+Epoch 3/10 | loss: 0.2385 | train_acc: 0.9601 | val_acc: 0.9592 | val_f1: 0.9582
+Epoch 4/10 | loss: 0.2241 | train_acc: 0.9410 | val_acc: 0.9315 | val_f1: 0.9305
+Epoch 5/10 | loss: 0.2186 | train_acc: 0.9684 | val_acc: 0.9607 | val_f1: 0.9599
+Epoch 6/10 | loss: 0.2265 | train_acc: 0.9581 | val_acc: 0.9513 | val_f1: 0.9503
+Epoch 7/10 | loss: 0.2247 | train_acc: 0.9610 | val_acc: 0.9527 | val_f1: 0.9522
+Epoch 8/10 | loss: 0.2327 | train_acc: 0.9584 | val_acc: 0.9485 | val_f1: 0.9485
+Epoch 9/10 | loss: 0.2516 | train_acc: 0.9554 | val_acc: 0.9500 | val_f1: 0.9498
+Epoch 10/10 | loss: 0.2734 | train_acc: 0.9259 | val_acc: 0.9225 | val_f1: 0.9230
+optim_rmsprop: test_acc=0.9591 | test_f1=0.9588
