@@ -28,16 +28,19 @@ def parse_arguments():
 
 
 def load_model(model_path):
+    """load saved weights from .npy file"""
     data = np.load(model_path, allow_pickle=True).item()
     return data
 
 
 def evaluate_model(model, X_test, y_test):
+    """run model on test set and compute all metrics"""
     logits = model.forward(X_test)
     probs = softmax(logits)
     preds = np.argmax(probs, axis=1)
     labels = np.argmax(y_test, axis=1)
 
+    # compute metrics using sklearn
     acc = accuracy_score(labels, preds)
     prec = precision_score(labels, preds, average='macro')
     rec = recall_score(labels, preds, average='macro')
@@ -61,8 +64,10 @@ def main():
         args.hidden_size = args.hidden_size + [args.hidden_size[-1]] * (args.num_layers - len(args.hidden_size))
     args.hidden_size = args.hidden_size[:args.num_layers]
 
+    # load test data (we don't need train/val for inference)
     _, _, _, _, X_test, y_test = load_data(args.dataset)
 
+    # build model with same architecture and load saved weights
     model = NeuralNetwork(args)
     weights = load_model(args.model_path)
     model.set_weights(weights)
