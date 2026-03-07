@@ -1,0 +1,16 @@
+{
+  "dataset": "fashion_mnist",
+  "epochs": 15,
+  "batch_size": 32,
+  "loss": "cross_entropy",
+  "optimizer": "momentum",
+  "learning_rate": 0.07637335424359246,
+  "weight_decay": 0,
+  "num_layers": 2,
+  "hidden_size": [
+    128,
+    64
+  ],
+  "activation": "sigmoid",
+  "weight_init": "xavier"
+}

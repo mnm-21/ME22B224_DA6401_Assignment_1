@@ -1,0 +1,50 @@
+[
+  {
+    "test_accuracy": 0.9792,
+    "test_f1": 0.9790039518480806,
+    "optimizer": "momentum",
+    "activation": "sigmoid",
+    "num_layers": 2,
+    "hidden_size": [
+      128,
+      64
+    ],
+    "architecture_pattern": "funnel",
+    "learning_rate": 0.07637335424359246,
+    "batch_size": 32,
+    "weight_init": "xavier",
+    "weight_decay": 0
+  },
+  {
+    "test_accuracy": 0.9791,
+    "test_f1": 0.978992833035387,
+    "optimizer": "nag",
+    "activation": "relu",
+    "num_layers": 2,
+    "hidden_size": [
+      128,
+      64
+    ],
+    "architecture_pattern": "funnel",
+    "learning_rate": 0.017694184454713262,
+    "batch_size": 64,
+    "weight_init": "xavier",
+    "weight_decay": 0.0005
+  },
+  {
+    "test_accuracy": 0.9789,
+    "test_f1": 0.9786884460264572,
+    "optimizer": "nag",
+    "activation": "relu",
+    "num_layers": 2,
+    "hidden_size": [
+      128,
+      64
+    ],
+    "architecture_pattern": "funnel",
+    "learning_rate": 0.018007439693428027,
+    "batch_size": 32,
+    "weight_init": "random",
+    "weight_decay": 0.0005
+  }
+]

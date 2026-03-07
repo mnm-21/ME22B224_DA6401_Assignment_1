@@ -1,6 +1,8 @@
 # experiments for wandb report
 
 import sys, os, json
+import numpy as np
+np.seterr(all='ignore')
 sys.path.insert(0, os.path.dirname(__file__))
 
 import argparse

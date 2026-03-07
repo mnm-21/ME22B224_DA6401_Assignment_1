@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 import argparse
 import numpy as np
+np.seterr(all='ignore')
 from ann.neural_network import NeuralNetwork
 from utils.data_loader import load_data
 

@@ -39,8 +39,10 @@ class NeuralNetwork:
         d = self.loss_grad(y_true, y_pred)
         for i, layer in enumerate(reversed(self.layers)):
             d = layer.backward(d)
-            self.grad_W[i] = layer.grad_W
-            self.grad_b[i] = layer.grad_b
+            # store in forward order: index 0 = first layer, index -1 = output layer
+            idx = len(self.layers) - 1 - i
+            self.grad_W[idx] = layer.grad_W
+            self.grad_b[idx] = layer.grad_b
         return self.grad_W, self.grad_b
 
     def update_weights(self):
