@@ -26,7 +26,7 @@ def softmax(z):
     e = np.exp(z - np.max(z, axis=1, keepdims=True))  # subtract max for numerical stability
     return e / np.sum(e, axis=1, keepdims=True)
 
-# maps activation name -> (function, derivative)
+# maps activation name to (function, derivative)
 ACTIVATIONS = {
     'sigmoid': (sigmoid, sigmoid_deriv),
     'tanh': (tanh, tanh_deriv),

@@ -27,7 +27,7 @@ def mse_grad(y_true, logits):
     s = np.sum(d_probs * probs, axis=1, keepdims=True)
     return probs * (d_probs - s)
 
-# maps loss name -> (loss_fn, grad_fn)
+# maps loss name to (loss_fn, grad_fn)
 LOSSES = {
     'cross_entropy': (cross_entropy, cross_entropy_grad),
     'mean_squared_error': (mse, mse_grad),
