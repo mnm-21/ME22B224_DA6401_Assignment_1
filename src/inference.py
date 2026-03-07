@@ -7,7 +7,6 @@ import numpy as np
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from ann.neural_network import NeuralNetwork
 from ann.activations import softmax
-from ann.objective_functions import LOSSES
 from utils.data_loader import load_data
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -51,12 +50,8 @@ def evaluate_model(model, X_test, y_test):
     prec = precision_score(labels, preds, average='macro')
     rec = recall_score(labels, preds, average='macro')
     f1 = f1_score(labels, preds, average='macro')
-    
-    loss_fn, _ = LOSSES[args.loss]
-    loss = loss_fn(y_test, logits)
 
     return {
-        'loss': loss,
         'logits': logits,
         'accuracy': acc,
         'precision': prec,

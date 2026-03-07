@@ -4,7 +4,6 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 import argparse
 import numpy as np
-np.seterr(all='ignore')
 from ann.neural_network import NeuralNetwork
 from utils.data_loader import load_data
 
@@ -46,9 +45,8 @@ def main():
 
     import wandb
     try:
-        run = wandb.init(project=args.wandb_project, config=vars(args), server=None)
+        run = wandb.init(project=args.wandb_project, config=vars(args))
     except Exception:
-        print("W&B initialization failed (likely network timeout). Continuing without logging.")
         run = None
 
     model = NeuralNetwork(args)
