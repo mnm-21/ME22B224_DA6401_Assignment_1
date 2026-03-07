@@ -70,7 +70,7 @@ class NeuralNetwork:
                 # forward, loss, backward, update
                 logits = self.forward(xb)
                 loss = self.loss_fn(yb, logits)
-                epoch_loss += loss  # loss is already sum over batch
+                epoch_loss += loss * xb.shape[0]
                 self.backward(yb, logits)
                 self.update_weights()
                 step += 1
@@ -136,7 +136,7 @@ class NeuralNetwork:
 
     def _compute_loss(self, X, y):
         logits = self.forward(X)
-        return self.loss_fn(y, logits) / X.shape[0]  # per-sample avg for display
+        return self.loss_fn(y, logits)
 
     def evaluate(self, X, y):
         acc, _ = self.evaluate_metrics(X, y)

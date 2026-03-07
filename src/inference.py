@@ -45,6 +45,10 @@ def evaluate_model(model, X_test, y_test):
     preds = np.argmax(probs, axis=1)
     labels = np.argmax(y_test, axis=1)
 
+    # compute loss
+    from ann.objective_functions import cross_entropy
+    loss = cross_entropy(y_test, logits)
+
     # compute metrics using sklearn
     acc = accuracy_score(labels, preds)
     prec = precision_score(labels, preds, average='macro')
@@ -53,6 +57,7 @@ def evaluate_model(model, X_test, y_test):
 
     return {
         'logits': logits,
+        'loss': float(loss),
         'accuracy': acc,
         'precision': prec,
         'recall': rec,
