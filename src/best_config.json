@@ -4,8 +4,8 @@
   "batch_size": 32,
   "loss": "cross_entropy",
   "optimizer": "momentum",
-  "learning_rate": 0.07637335424359246,
-  "weight_decay": 0,
+  "learning_rate": 0.076,
+  "weight_decay": 0.0,
   "num_layers": 2,
   "hidden_size": [
     128,
@@ -15,6 +15,7 @@
   "weight_init": "xavier",
   "wandb_project": "da6401_assignment_1",
   "model_save_path": "best_model.npy",
-  "test_accuracy": 0.9792,
-  "test_f1": 0.9790039518480806
+  "detailed_log": false,
+  "test_accuracy": 0.9785,
+  "test_f1": 0.97827972385067
 }

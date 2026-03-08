@@ -36,6 +36,10 @@ class NeuralNetwork:
         return out
 
     def backward(self, y_true, y_pred):
+        # convert integer labels to one-hot if necessary
+        if y_true.ndim == 1:
+            y_true = np.eye(y_pred.shape[1])[y_true]
+
         # backprop from last layer to first
         self.grad_W = np.empty(len(self.layers), dtype=object)
         self.grad_b = np.empty(len(self.layers), dtype=object)
@@ -81,7 +85,9 @@ class NeuralNetwork:
 
                 # forward, loss, backward, update
                 logits = self.forward(xb)
-                loss = self.loss_fn(yb, logits)
+                # ensure one-hot for loss calculation
+                yb_oh = np.eye(logits.shape[1])[yb] if yb.ndim == 1 else yb
+                loss = self.loss_fn(yb_oh, logits)
                 epoch_loss += loss * xb.shape[0]
                 self.backward(yb, logits)
                 self.update_weights()
@@ -157,6 +163,8 @@ class NeuralNetwork:
 
     def _compute_loss(self, X, y):
         logits = self.forward(X)
+        if y.ndim == 1:
+            y = np.eye(logits.shape[1])[y]
         return self.loss_fn(y, logits)
 
     def evaluate(self, X, y):
@@ -168,7 +176,8 @@ class NeuralNetwork:
         logits = self.forward(X)
         probs = softmax(logits)
         preds = np.argmax(probs, axis=1)
-        labels = np.argmax(y, axis=1)
+        # handle one-hot vs integer labels
+        labels = y if y.ndim == 1 else np.argmax(y, axis=1)
         acc = np.mean(preds == labels)
         f1 = f1_score(labels, preds, average="macro")
         return acc, f1
