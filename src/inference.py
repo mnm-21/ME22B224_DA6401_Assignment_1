@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def parse_arguments():
     p = argparse.ArgumentParser(description="Run inference on test set")
     p.add_argument(
-        "-d", "--dataset", default="fashion_mnist", choices=["mnist", "fashion_mnist"]
+        "-d", "--dataset", default="mnist", choices=["mnist", "fashion_mnist"]
     )
     p.add_argument("-e", "--epochs", type=int, default=10)
     p.add_argument("-b", "--batch_size", type=int, default=32)
