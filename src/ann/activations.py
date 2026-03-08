@@ -30,9 +30,7 @@ def relu_deriv(a):
 
 # softmax: converts logits to probabilities
 def softmax(z):
-    e = np.exp(
-        z - np.max(z, axis=1, keepdims=True)
-    )  # subtract max for numerical stability
+    e = np.exp(z)
     return e / np.sum(e, axis=1, keepdims=True)
 
 
