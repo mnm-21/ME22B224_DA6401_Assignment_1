@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def parse_arguments():
     p = argparse.ArgumentParser(description="Train a neural network")
     p.add_argument(
-        "-d", "--dataset", default="fashion_mnist", choices=["mnist", "fashion_mnist"]
+        "-d", "--dataset", default="mnist", choices=["mnist", "fashion_mnist"]
     )
     p.add_argument("-e", "--epochs", type=int, default=10)
     p.add_argument("-b", "--batch_size", type=int, default=32)
@@ -41,7 +41,7 @@ def parse_arguments():
         "-w_i", "--weight_init", default="xavier", choices=["random", "xavier", "zeros"]
     )
     p.add_argument("-w_p", "--wandb_project", default="da6401_assignment_1")
-    p.add_argument("--model_save_path", default="best_model_train.npy")
+    p.add_argument("--model_save_path", default="best_model.npy")
     p.add_argument(
         "--detailed_log",
         action="store_true",
